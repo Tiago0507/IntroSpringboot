@@ -1,25 +1,38 @@
 package org.example.introspringboot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jdk.jfr.Enabled;
+
+import java.util.List;
 
 // POJOs
 @Entity
 @Table(name = "students")
 public class Student {
+
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     private String name;
+
     private String code;
+
     private String program;
 
-    public int getId() {
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Enrollment> enrollments;
+
+    public Student() {
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -35,9 +48,7 @@ public class Student {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+    public void setCode(String code) { this.code = code; }
 
     public String getProgram() {
         return program;
@@ -46,8 +57,6 @@ public class Student {
     public void setProgram(String program) {
         this.program = program;
     }
-
-
 
 
 }

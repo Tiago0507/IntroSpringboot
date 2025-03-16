@@ -1,11 +1,11 @@
 package org.example.introspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 
-
 @Entity
-@Table(name = "professor")
+@Table(name = "professors")
 public class Professor {
 
     @Id
@@ -15,7 +15,11 @@ public class Professor {
     private String name;
 
     @OneToMany(mappedBy = "professor") //Nombre de la propiedad en la otra clase
+    @JsonIgnore
     private List<Course> courseList;
+
+    public Professor() {
+    }
 
     //ToDo: Hacer Getters y Setters
 

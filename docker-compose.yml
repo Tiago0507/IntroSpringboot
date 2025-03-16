@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_DB: 'DBIntroSpringboot'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_HOST_AUTH_METHOD: 'md5'
+    ports:
+      - '5433:5432'
+    expose:
+      - '5432'
+    volumes:
+      - my-volume:/var/lib/postgresql/data
+      - ./pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+
+volumes:
+  my-volume:
